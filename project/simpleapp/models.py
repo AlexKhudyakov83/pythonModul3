@@ -16,7 +16,8 @@ class Product(models.Model):
     category = models.ForeignKey(
         to='Category',
         on_delete=models.CASCADE,
-        related_name='products', # все продукты в категории будут доступны через поле products
+        related_name='products', # все продукты в категории
+        # будут доступны через поле products
     )
     price = models.FloatField(
         validators=[MinValueValidator(0.0)],
