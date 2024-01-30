@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MinValueValidator
+import django.core.validators
 
 
 # Товар для нашей витрины
@@ -10,7 +10,7 @@ class Product(models.Model):
     )
     description = models.TextField()
     quantity = models.IntegerField(
-        validators=[MinValueValidator(0)],
+        validators=[django.core.validators.MinValueValidator(0)],
     )
     # поле категории будет ссылаться на модель категории
     category = models.ForeignKey(
@@ -20,7 +20,7 @@ class Product(models.Model):
         # будут доступны через поле products
     )
     price = models.FloatField(
-        validators=[MinValueValidator(0.0)],
+        validators=[django.core.validators.MinValueValidator(0.0)],
     )
 
     def __str__(self):
