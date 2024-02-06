@@ -2,11 +2,14 @@ from datetime import datetime
 
 # Импортируем класс, который говорит нам о том,
 # что в этом представлении мы будем выводить список объектов из БД
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, \
+    CreateView, UpdateView, DeleteView
 from .models import Product
 from pprint import pprint
 from django.http import HttpResponse
 from .filters import ProductFilter
+from .forms import ProductForm
+from django.urls import reverse_lazy
 
 
 class ProductsList(ListView):
@@ -74,3 +77,26 @@ def multiply(request):
        html = f"<html><body>Invalid input.</body></html>"
 
    return HttpResponse(html)
+
+
+# Добавляем новое представление для создания товаров.
+class ProductCreate(CreateView):
+    # Указываем нашу разработанную форму
+    form_class = ProductForm
+    # модель товаров
+    model = Product
+    # и новый шаблон, в котором используется форма.
+    template_name = 'product_edit.html'
+
+
+# Добавляем новое представление для изменения товаров.
+class ProductUpdate(UpdateView):
+    form_class = ProductForm
+    model = Product
+    template_name = 'product_edit.html'
+
+# Представление удаляющее товар.
+class ProductDelete(DeleteView):
+    model = Product
+    template_name = 'product_delete.html'
+    success_url = reverse_lazy('product_list')

@@ -1,5 +1,6 @@
 from django.db import models
 import django.core.validators
+from django.urls import reverse
 
 
 # Товар для нашей витрины
@@ -25,6 +26,9 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name.title()}: {self.description[:20]}'
+
+    def get_absolute_url(self):
+        return reverse('product_detail', args=[str(self.id)])
 
 
 # Категория, к которой будет привязываться товар

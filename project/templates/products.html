@@ -11,6 +11,14 @@ Products
 {% block content %}
    <h1>Все товары</h1>
 
+       {# Добавляем форму, которая объединяет набор полей, которые будут отправляться в запросе #}
+   <form action="" method="get">
+       {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
+       {{ filterset.form.as_p }}
+       {# Добавим кнопку отправки данных формы #}
+       <input type="submit" value="Найти" />
+   </form>
+
 <form action="" method="get" >
     {{ filterset.form.non_field_errors }}
 
