@@ -16,13 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from simpleapp.views import multiply
+# from simpleapp.views import multiply
 
 urlpatterns = [
    path('admin/', admin.site.urls),
    path('pages/', include('django.contrib.flatpages.urls')),
-   # Делаем так, чтобы все адреса из нашего приложения (simpleapp/urls.py)
-   # подключались к главному приложению с префиксом products/.
+   path('accounts/', include('django.contrib.auth.urls')),
+   path('accounts/', include('accounts.urls')),
    path('products/', include('simpleapp.urls')),
-   path('multiply/', multiply)
+   # path('multiply/', multiply)
 ]
