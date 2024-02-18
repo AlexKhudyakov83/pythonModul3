@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, \
     CreateView, UpdateView, DeleteView
 from .models import Product
@@ -65,21 +65,9 @@ class ProductDetail(DetailView):
     context_object_name = 'product'
 
 
-# def multiply(request):
-#    number = request.GET.get('number')
-#    multiplier = request.GET.get('multiplier')
-#
-#    try:
-#        result = int(number) * int(multiplier)
-#        html = f"<html><body>{number}*{multiplier}={result}</body></html>"
-#    except (ValueError, TypeError):
-#        html = f"<html><body>Invalid input.</body></html>"
-#
-#    return HttpResponse(html)
-
-
 # Добавляем новое представление для создания товаров.
-class ProductCreate(LoginRequiredMixin, CreateView):
+class ProductCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ('simpleapp.add_product',)
     raise_exception = True
     # Указываем нашу разработанную форму
     form_class = ProductForm
@@ -90,13 +78,15 @@ class ProductCreate(LoginRequiredMixin, CreateView):
 
 
 # Добавляем новое представление для изменения товаров.
-class ProductUpdate(UpdateView):
+class ProductUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = ('simpleapp.change_product',)
     form_class = ProductForm
     model = Product
     template_name = 'product_edit.html'
 
 # Представление удаляющее товар.
-class ProductDelete(DeleteView):
+class ProductDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = ('simpleapp.delete_product',)
     model = Product
     template_name = 'product_delete.html'
     success_url = reverse_lazy('product_list')
