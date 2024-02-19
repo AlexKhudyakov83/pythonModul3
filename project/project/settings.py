@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'simpleapp',
     'django_filters',
     'accounts',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -143,5 +144,23 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_FORMS = {"signup": "accounts.forms.CustomSignupForm"}
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+
+# Пароль dvahtsrqrjiwqwho
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "askhudyakov83@yandex.ru"
+EMAIL_HOST_PASSWORD = "dvahtsrqrjiwqwho"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = "askhudyakov83@yandex.ru"
+
+SERVER_EMAIL = "askhudyakov83@yandex.ru"
+MANAGERS = (
+    ('admin', 'askhudyakov83@yandex.ru'),
+)
